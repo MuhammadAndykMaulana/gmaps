@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <script src="http://maps.google.com/maps/api/js"></script>
+  <script src="gmaps.js"></script>
+  <style type="text/css">
+    #map {
+      width: 400px;
+      height: 400px;
+    }
+  </style>
+</head>
+<body>
+  <div id="map" style="width:900px; height:500px"></div>
+  <script>
+    var lats = -7.2576757, lngs = 112.7354484;
+	var marker = [];
+	var map = new GMaps({
+      el: '#map',
+      lat: -7.2576757,
+      lng: 112.7354484,
+	  zomm:14
+    });
+	
+	function reset(){
+		for(var i=0; i<marker.length; i++){
+			marker[i].setMap(null);
+		}
+		marker = [];
+	}	
+
+	function looping(){
+		reset();
+		add_marker();
+		add_marker();
+		setTimeout(looping, 1000);
+	}
+	
+	function add_marker(){		
+		latplus = (Math.random() - 0.5) / 500;
+		lngplus = (Math.random() - 0.5) / 500;
+		lats+=latplus;
+		lngs+=lngplus;
+		item_marker = map.addMarker({
+		  lat: lats,
+		  lng: lngs,
+		  title: 'Lima',
+		  click: function(e) {
+			alert('You clicked in this marker');
+		  }
+		});
+		marker.push(item_marker);				
+	}			
+	
+	setTimeout(looping, 1000);
+  </script>
+</body>
+</html>
